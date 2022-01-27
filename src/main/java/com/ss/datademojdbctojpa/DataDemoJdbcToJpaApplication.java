@@ -30,5 +30,8 @@ public class DataDemoJdbcToJpaApplication implements CommandLineRunner {
         logger.info("User with Id 10002 and Name Petar -> {}",
                 dao.findByIdAndName(10002, "Petar")
         );
+        logger.info("Delete User with Id 10003 -> Number of rows deleted {}",
+                dao.deleteById(10003)
+        );
     }
 }
