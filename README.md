@@ -25,3 +25,21 @@ Create a new table in H2 DB:
 
 Populate H2 table
     - just write a simple insert into query
+
+If Row mapper doesn't match with the columns of the DAO object, we can write a custom one like this one:
+
+class PersonRowMapper implements RowMapper<Person>{
+        @Override
+        public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Person person = new Person();
+            person.setId(rs.getInt("id"));
+            person.setName(rs.getString("name"));
+            person.setLocation(rs.getString("location"));
+            person.setBirthDate(rs.getTimestamp("birth_date"));
+            return person;
+        }
+    }
+and use it:
+    public List<Person> findAll() {
+        return jdbcTemplate.query("select * from person", new PersonRowMapper());
+    };
